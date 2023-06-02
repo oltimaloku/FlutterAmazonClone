@@ -4,7 +4,7 @@ const authRouter = express.Router();
 const bcryptjs = require("bcryptjs");
 
 authRouter.post('/api/signup', async (req, res) => {
-
+console.log(req.body);
     try {
         // gives us access to name email and passoword
     const {name, email, password} = req.body;
@@ -20,9 +20,9 @@ authRouter.post('/api/signup', async (req, res) => {
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     let user = new User({
-        email: email,
+        email,
         password: hashedPassword,
-        name: name,
+        name,
     })
     user = await user.save();
     res.json({user});
